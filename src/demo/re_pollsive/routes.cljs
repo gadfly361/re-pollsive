@@ -28,16 +28,16 @@
 
     (rf/dispatch [::events/poll-stop])
     (rf/dispatch [::poll/set-rules
-                  {:rules [{:interval                 4
-                            :event                    [::events/log "POLL (every 4)"]
-                            :poll-when                [::subs/poll?]
-                            :dispatch-event-on-start? true}
+                  [{:interval                 4
+                    :event                    [::events/log "POLL (every 4)"]
+                    :poll-when                [::subs/poll?]
+                    :dispatch-event-on-start? true}
 
-                           {:interval                 6
-                            :event                    [::events/log "POLL (every 6)"]
-                            :poll-when                [::subs/poll?]
-                            :dispatch-event-on-start? true}
-                           ]}]))
+                   {:interval                 6
+                    :event                    [::events/log "POLL (every 6)"]
+                    :poll-when                [::subs/poll?]
+                    :dispatch-event-on-start? true}
+                   ]]))
 
   (defroute "/about" []
     (rf/dispatch [::events/set-active-panel :about-panel]))

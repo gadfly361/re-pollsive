@@ -60,7 +60,7 @@ Note: This needs to be dispatched **only once**, when the application *first* lo
 
 ### `::poll/set-rules`
 
-`::poll/set-rules` takes a hash-map of the following:
+`::poll/set-rules` takes a vector of hash-maps with the following shape:
 
 | key                       | type                  | default   | required? |
 |---------------------------|-----------------------|-----------|-----------|
@@ -85,18 +85,18 @@ Here is an example:
 ```clojure
 (re-frame/dispatch
  [::poll/set-rules
-  {:rules [;; rule #1
-           {:interval                 4
-            :event                    [::events/log "POLL (every 4 seconds)"]
-            :poll-when                [::subs/poll?]
-            :dispatch-event-on-start? true}
+  [;; rule #1
+   {:interval                 4
+    :event                    [::events/log "POLL (every 4 seconds)"]
+    :poll-when                [::subs/poll?]
+    :dispatch-event-on-start? true}
 
-           ;; rule #2
-           {:interval                 6
-            :event                    [::events/log "POLL (every 6 seconds)"]
-            :poll-when                [::subs/poll?]
-            :dispatch-event-on-start? false}
-           ]}])
+   ;; rule #2
+   {:interval                 6
+    :event                    [::events/log "POLL (every 6 seconds)"]
+    :poll-when                [::subs/poll?]
+    :dispatch-event-on-start? false}
+   ]])
 ```
 
 # Usage

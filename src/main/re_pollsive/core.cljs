@@ -15,7 +15,6 @@
 (rf/reg-event-fx
  ::set-rules
  (fn [{:keys [db]}
-      [_ {:keys [rules]
-          :as   opts}]]
+      [_ rules]]
    {:db (-> db
             (assoc-in [::polling :rules] rules))}))
