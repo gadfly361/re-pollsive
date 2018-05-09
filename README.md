@@ -66,8 +66,74 @@ Note: This needs to be dispatched **only once**, when the application *first* lo
 |---------------------------|-----------------------|-----------|-----------|
 | :interval                 | int (seconds)         |           | **yes**   |
 | :event                    | re-frame event        |           | **yes**   |
-| :poll-when                | re-frame subscription |           | **yes**   |
-| :dispatch-event-on-start? | boolean               | false     | **no**    |
+| :poll-when                | re-frame subscription |           | no        |
+| :dispatch-event-on-start? | boolean               | false     | no        |
+
+`:poll-when` is a re-frame subscription vector
+(e.g. `[:should-i-be-polling?]`), and its value should be a boolean.
+`:poll-when` can be used to effectively *start* and *stop* the poller.
+If you do not supply `:poll-when`, then the poller will always run.
+
+`:dispatch-event-on-start?` is a way to dispatch the event at time 0.
+Say you have an interval of 30, by setting `:dispatch-event-on-start?`
+to true, then the event will dispatch at 0 seconds, 30 seconds, 60
+seconds, etc.  If `:dispatch-event-on-start?` is false, then the event
+will dispatch at 30 seconds, 60 seconds, etc. (and not at time 0).
+
+# Usage
+
+Create a new re-frame application.
+
+```
+lein new re-frame foo
+```
+
+Add the following to the `:dependencies` vector of your *project.clj*
+file.
+
+```clojure
+[re-pollsive "0.1.0"]
+```
+
+Then require re-pollisve in the core namespace, and add the
+`::poll/init` event.
+
+```clojure
+(ns foo.core
+  (:require [reagent.core :as reagent]
+            [re-frame.core :as re-frame]
+
+            ;; Add this (1 of 2)
+            [re-pollisve.core :as poll]
+
+            [foo.events :as events]
+            [foo.views :as views]
+            [foo.config :as config]
+            ))
+
+(defn dev-setup []
+  (when config/debug?
+    (enable-console-print!)
+    (println "dev mode")))
+
+(defn mount-root []
+  (re-frame/clear-subscription-cache!)
+  (reagent/render [views/main-panel]
+                  (.getElementById js/document "app")))
+
+(defn ^:export init []
+  (re-frame/dispatch-sync [::events/initialize-db])
+
+  ;; And this (2 of 2)
+  (re-frame/dispatch-sync [::poll/init])
+
+  (dev-setup)
+  (mount-root))
+```
+
+Next, you will need to dispatch a `::poll/set-rules` event somewhere.
+Personally, I like dispatching this in my routes file (because I may
+want to handle polling events differently on each page).
 
 # Non-goals
 
