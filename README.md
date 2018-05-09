@@ -80,6 +80,25 @@ to true, then the event will dispatch at 0 seconds, 30 seconds, 60
 seconds, etc.  If `:dispatch-event-on-start?` is false, then the event
 will dispatch at 30 seconds, 60 seconds, etc. (and not at time 0).
 
+Here is an example:
+
+```clojure
+(re-frame/dispatch
+ [::poll/set-rules
+  {:rules [;; rule #1
+           {:interval                 4
+            :event                    [::events/log "POLL (every 4 seconds)"]
+            :poll-when                [::subs/poll?]
+            :dispatch-event-on-start? true}
+
+           ;; rule #2
+           {:interval                 6
+            :event                    [::events/log "POLL (every 6 seconds)"]
+            :poll-when                [::subs/poll?]
+            :dispatch-event-on-start? false}
+           ]}])
+```
+
 # Usage
 
 Create a new re-frame application.
