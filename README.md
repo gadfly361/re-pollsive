@@ -6,8 +6,6 @@
 re-pollsive is a library that handles polling events
 for [re-frame](https://github.com/Day8/re-frame) applications.
 
-**NOTE: NOT YET PUBLISHED TO CLOJARS** ... but it will be very soon.
-
 ```clojure
 [re-pollsive "0.1.0"]
 ```
