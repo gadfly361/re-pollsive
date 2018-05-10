@@ -21,9 +21,11 @@ as the api is still settling.
 
 # The Problem
 
-If you aren't careful, it is easy to add a bunch of `setInterval`s
-scattered throughout your application.  When these `setInterval`s
-collide, this can lead to unexpected and hard to debug behavior.
+When you want to poll something, you will likely reach for
+javascript's `setInterval`. However, if you aren't careful, it is easy
+to add a bunch of `setInterval`s scattered throughout your
+application.  When these `setInterval`s collide, this can lead to
+unexpected and hard to debug behavior.
 
 In addition, if you are using a hot-reloading tool (such
 as [figwheel](https://github.com/bhauman/lein-figwheel)), you will
