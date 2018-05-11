@@ -123,7 +123,7 @@ Then require re-pollisve in the core namespace, and add the
             [re-frame.core :as re-frame]
 
             ;; Add this (1 of 2)
-            [re-pollisve.core :as poll]
+            [re-pollsive.core :as poll]
 
             [foo.events :as events]
             [foo.views :as views]
