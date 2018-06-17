@@ -54,7 +54,7 @@ problems.
 
 Note: This needs to be dispatched **only once**, when the application *first* loads.
 
-```
+```clojure
 (re-frame/dispatch-sync [::poll/init])
 ```
 
@@ -114,7 +114,7 @@ file.
 [re-pollsive "0.1.0"]
 ```
 
-Then require re-pollisve in the core namespace, and add the
+Then require re-pollsive in the core namespace, and add the
 `::poll/init` event.
 
 ```clojure
