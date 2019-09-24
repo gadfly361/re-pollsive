@@ -15,9 +15,6 @@ And in your ns:
 (ns your-ns
   (:require [re-pollsive.core :as poll]))
 ```
-  
-**Note**: For now, this library should be considered *alpha quality*,
-as the api is still settling.
 
 # The Problem
 
